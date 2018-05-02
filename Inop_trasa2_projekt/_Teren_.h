@@ -49,6 +49,10 @@ ToDo:
 #include "_Fix_.h"
 #include "_Samolot_.h"
 #include <vector>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -86,6 +90,9 @@ public:
 
 	_Teren_ & operator = (_Teren_ const& zmienna);	// przeladowany operator przyrownania
 
+	
+	_Teren_ & operator<< (string  wspolrzedna_x_punktu_s); //rzutowania ze stringow na rozne typy
+
 private:
 	double wspolrzedna_x_punktu;
 	double wspolrzedna_y_punktu;
@@ -96,7 +103,7 @@ private:
 	vector <int> dni;
 	vector <int> godziny;
 	vector <_Samolot_> loty_z_danego_dnia;
-
+	_Samolot_ tmp;
 };
 
 #endif

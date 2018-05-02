@@ -3,7 +3,6 @@
 
 _Samolot_::_Samolot_()
 {
-	this->identyfikator_lotu = 0;
 	this->unikalny_ID_lotu = 0;
 	this->nazwa_lotniska_startowego = "lotnisko startowe";
 	this->nazwa_lotniska_koncowego = "lotnisko koncowe";
@@ -23,10 +22,6 @@ _Samolot_::~_Samolot_()
 {
 }
 
-void _Samolot_::set_identyfikator_lotu(double _identyfikator_lotu)
-{
-	this->identyfikator_lotu = _identyfikator_lotu;
-}
 
 void _Samolot_::set_unikalny_ID_lotu(double _unikalny_ID_lotu)
 {
@@ -43,7 +38,19 @@ void _Samolot_::set_nazwa_lotniska_koncowego(string _nazwa_lotniska_koncowego)
 	this->nazwa_lotniska_koncowego = _nazwa_lotniska_koncowego;
 }
 
-double _Samolot_::get_identyfikator_lotu()
+void _Samolot_::set_identyfikator_lotu(string _identyfikator_lotu)
+{
+	this->identyfikator_lotu = _identyfikator_lotu;
+}
+
+void _Samolot_::set_unikalny_ID_lotu(string _unikalny_ID_lotu)
+{
+	stringstream tmp;
+	tmp << _unikalny_ID_lotu;
+	tmp >> unikalny_ID_lotu;
+}
+
+string _Samolot_::get_identyfikator_lotu()
 {
 	return identyfikator_lotu;
 }

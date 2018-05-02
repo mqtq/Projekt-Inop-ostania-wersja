@@ -39,6 +39,7 @@ ToDo:
 #include "_Fix_.h"
 #include <vector>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -50,13 +51,15 @@ public:
 	~_Samolot_();
 
 	// sety:
-	void set_identyfikator_lotu(double _identyfikator_lotu);	//ustawia parametr identyfikator_lotu
 	void set_unikalny_ID_lotu(double _unikalny_ID_lotu);		//ustawia parametr unikalny_ID_lotu
 	void set_nazwa_lotniska_startowego(string _nazwa_lotniska_starowego);	//ustawia nazwe_lotniska_startowego
 	void set_nazwa_lotniska_koncowego(string _nazwa_lotniska_koncowego);	//ustawia nazwe_lotniska_startowego
+	void set_identyfikator_lotu(string _identyfikator_lotu);	//ustawia parametr identyfikator_lotu
+	void set_unikalny_ID_lotu(string _unikalny_ID_lotu);		//ustawia parametr unikalny_ID_lotu
+
 
 																			// gety:
-	double get_identyfikator_lotu();	//zwraca parametr identyfikator_lotu
+	string get_identyfikator_lotu();	//zwraca parametr identyfikator_lotu
 	double get_unikalny_ID_lotu();	//zwraca parametr unikalny_ID_lotu
 	string get_nazwa_lotniska_starowego();	//zwraca nazwe_lotniska_startowego
 	string get_nazwa_lotniska_koncowego();	//zwraca nazwe_lotniska_koncowego
@@ -68,7 +71,7 @@ public:
 	_Samolot_ & operator = (_Samolot_ const& zmienna);	// przeladowany operator przyrownania
 
 private:
-	double identyfikator_lotu;
+	string identyfikator_lotu;
 	double unikalny_ID_lotu;
 	string nazwa_lotniska_startowego;
 	string nazwa_lotniska_koncowego;

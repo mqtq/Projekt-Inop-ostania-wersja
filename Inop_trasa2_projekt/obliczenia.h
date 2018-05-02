@@ -29,18 +29,6 @@ double rad2deg(double rad)
 	return (rad * 180 / 3.14159265358979323846);
 }
 
-
-double licz_odleglosc_punktu_od_prostej(double X1, double Y1, double X2, double Y2, double X_punktu, double Y_punktu)
-{
-	double a, b, c, x1=deg2rad(X1) * 60 * 1.1515, x2 = deg2rad(X2) * 60 * 1.1515, y1 = deg2rad(Y1) * 60 * 1.1515, y2 = deg2rad(Y2) * 60 * 1.1515, x_punktu = deg2rad(X_punktu) * 60 * 1.1515, y_punktu = deg2rad(Y_punktu) * 60 * 1.1515;
-	a = y2 - y1;
-	b = x1 - x2;
-	c = y1 * x2 - y2 * x1;
-	double odleglosc = ((fabs(a*x_punktu + b * y_punktu + c)) / (sqrt(a*a + b * b)));
-	return odleglosc;
-
-}
-
 double distance(double lat1, double lon1, double lat2, double lon2, char unit) {
 	double theta, dist;
 	theta = lon1 - lon2;
@@ -61,16 +49,36 @@ double distance(double lat1, double lon1, double lat2, double lon2, char unit) {
 	return (dist);
 }
 
-bool czy_punkt_nalezy_do_okregu(double X_srodek_okregu, double Y_srodek_okregu, double R, double X1, double Y1)
+void licz_wspolczynniki_prostej_przechodzacej_przez_dwa_punkty(double x1, double y1, double x2, double y2, double &a, double &b)
 {
+	a = (y1 - y2) / (x1 - x2);
+	b = y1 - a * x1;
+}
+
+void licz_wspolczynniki_prostej_prostopadlej_do_danej_prostej_przechodzacej_przez_dany_punkt(double a_danej_prostej, double b_danej_prostej, double x, double y, double &a_prostej_prostopadlej, double &b_prostej_prostopadlej)
+{
+	a_prostej_prostopadlej = (-1) / a_danej_prostej;
+	b_prostej_prostopadlej = y - a_prostej_prostopadlej * x;
+}
+
+void licz_wspolrzedne_punktu_przeciecia_dwoch_prostych(double a1, double b1, double a2, double b2, double x, double y)
+{
+	x = (b2 - b1) / (a1 - a2);
+	y = a1 * x + b1;
+}
+
+bool czy_punkty_leza_po_tej_samej_stronie_trzeciego_punktu(double x1, double y1, double x2, double y2, double x3, double y3)
+{
+	double a, b, c;
+	a = sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+	b = sqrt((x3 - x2)*(x3 - x2) + (y3 - y2)*(y3 - y2));
+	c = sqrt((x1 - x3)*(x1 - x3) + (y1 - y3)*(y1 - y3));
 	bool wynik = false;
-	if (R >= distance(X_srodek_okregu,Y_srodek_okregu,X1,Y1,'K'))
+	if (fabs(a + b - c) < pow(10, -1))
 	{
 		wynik = true;
 	}
 	return wynik;
 }
-
-
 
 #endif // !_obliczenia_h_

@@ -27,6 +27,12 @@ ToDo:
 #ifndef _Fix_h_
 #define _Fix_h_
 
+#include <string>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
 class _Fix_
 {
 public:
@@ -43,6 +49,11 @@ public:
 	void set_wysokosc2(double _wysokosc2);	// ustawia parametr wysokosc2
 	void set_typ(double _typ);	// ustawia parametr typ
 	void set_czas(int _czas);	// ustawia parametr czas
+	void set_czas(string _czas);	// ustawia parametr czas
+	void set_wysokosc1(string _wysokosc1);	 // ustawia parametr wysokosc1
+	void set_dlugosc_geograficzna(string _dlugosc_geograficzna);		// ustawia parametr wspolrzedzna_N
+	void set_szerokosc_geograficzna(string _szerokosc_geograficzna);	// ustawia parametr wspolrzedzna_W
+	void set_wysokosc2(string _wysokosc2);	// ustawia parametr wysokosc2
 
 								// gety:
 	double get_dlugosc_geograficzna();	// zwraca parametr wspolrzedzna_N

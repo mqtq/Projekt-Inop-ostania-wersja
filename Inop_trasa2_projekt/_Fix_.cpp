@@ -63,6 +63,48 @@ void _Fix_::set_czas(int _czas)
 	this->czas = _czas;
 }
 
+void _Fix_::set_czas(string _czas)
+{
+	string tmp = _czas;
+	while (tmp.find(':') != string::npos)
+	{
+		tmp.erase(tmp.find(':'), 1);
+	}
+	stringstream tmpstr;
+	tmpstr << tmp;
+	tmpstr >> this->czas;
+}
+
+void _Fix_::set_wysokosc1(string _wysokosc1)
+{
+	stringstream tmp;
+	tmp << _wysokosc1;
+	tmp >> wysokosc1;
+}
+
+void _Fix_::set_dlugosc_geograficzna(string _dlugosc_geograficzna)
+{
+	stringstream tmpstr;
+	string tmp = _dlugosc_geograficzna;
+	tmpstr << tmp;
+	tmpstr >> dlugosc_geograficzna;
+}
+
+void _Fix_::set_szerokosc_geograficzna(string _szerokosc_geograficzna)
+{
+	stringstream tmpstr;
+	string tmp = _szerokosc_geograficzna;
+	tmpstr << tmp;
+	tmpstr >> szerokosc_geograficzna;
+}
+
+void _Fix_::set_wysokosc2(string _wysokosc2)
+{
+	stringstream tmp;
+	tmp << _wysokosc2;
+	tmp >> wysokosc2;
+}
+
 double _Fix_::get_dlugosc_geograficzna()
 {
 	return dlugosc_geograficzna;
