@@ -15,7 +15,8 @@ ToDo:
 
 int main()
 {
-
+	_Teren_ tmp;
+	tmp.wczytaj_plik("in.txt");
 
 	system("pause");
 	return 0;

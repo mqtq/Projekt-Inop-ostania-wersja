@@ -106,121 +106,151 @@ void _Teren_::wczytaj_plik(string _nazwa_pliku)
 	fstream plik(_nazwa_pliku);
 	if (!plik.good())
 	{
-		cout << "zly plik" << endl;
+		exit(442);									//blad odczytu pliku - kod 442
 	}
 	else
 	{
-		string id_samolotu; //unikalny identyfikator samolotu
-		string uid; //unikalny id lotu 
-		string date; //czas lotu
-		string ts; //czas startu
-		string src; //?
-		string attr; //?
-		string dep; //kod lotniska (wylot)
-		string tdep; //czas wylotu
-		string arr; //kod lotniska (lodowanie)
-		string tarr; //czas ladowania
-		string ac; //?
-		string acn; //kod samolotu
-		string eqp; //kod wyposazenia lotu
-		string act; //?
-		string ndep; //liczba (umowa) odcinkow wznoszenia
-		string narr; //liczba (umowa) odcinkow ladowania
-		string szerokosc_geograficzna; //szerokosc geograficzna
-		string dlugosc_geograficzna; //dlugosc geograficzna
-		string hh_mm_ss; //hh_mm_ss
+		string id_samolotu;				//id samolotu
+		string uid;						//id lotu 
+		string date;					//data
+		string ts;						//czas startu
+		string src;							//???
+		string attr;						//???
+		string dep;						//kod lotniska (wylot)
+		string tdep;					//godzina wylotu
+		string arr;						//kod lotniska (ladowanie)
+		string tarr;					//godzina ladowania
+		string ac;							//???
+		string acn;						//kod samolotu
+		string eqp;						//kod wyposazenia lotu
+		string act;							//???
+		string ndep;					//liczba (umowna) odcinkow wznoszenia
+		string narr;					//liczba (umowna) odcinkow ladowania
+		string szerokosc_geograficzna;	//szerokosc geograficzna
+		string dlugosc_geograficzna;	//dlugosc geograficzna
+		string hh_mm_ss;				//godzina w fixie
 		string wysokosc1;
 		string wysokosc2;
 		string nazwa_fix;
-		string asp; //predkosc wzgledem powietrza (w wezlach)
-		string gsp; //predkosc wzgledem ziemi
+		string asp;						//predkosc wzgledem powietrza (w wezlach)
+		string gsp;						//predkosc wzgledem ziemi
+		string d;							//???
+		string vr;							//???
+
 		string tmp = "";
 		stringstream tmpstr;
+
 		_Samolot_ samolot;
 		_Fix_ fix;
 
 		while (!plik.eof())
 		{
+			tmpstr.str("");
+			tmp = "";
 			std::getline(plik, tmp);
 			tmpstr << tmp;
-			if (tmp[0] != ':')
+			if (tmp[0] != ' ')
 			{
-				//czytanie naglowka
-				tmpstr >> id_samolotu;
-				tmpstr >> uid;
-				tmpstr >> date;
-				tmpstr >> ts;
-				tmpstr >> src;
-				tmpstr >> attr;
-				tmpstr >> dep;
-				tmpstr >> tdep;
-				tmpstr >> arr;
-				tmpstr >> tarr;
-				tmpstr >> ac;
-				tmpstr >> acn;
-				tmpstr >> eqp;
-				tmpstr >> act;
-				tmpstr >> ndep;
-				tmpstr >> narr;
-				samolot.set_identyfikator_lotu(id_samolotu);
-				samolot.set_unikalny_ID_lotu(uid);
-				samolot.set_nazwa_lotniska_startowego(dep);
-				samolot.set_nazwa_lotniska_koncowego(arr);
-				bool czy_dalej_w_petli = true;
-				while (czy_dalej_w_petli)
+				if (tmp[0] != ':')
 				{
-					std::getline(plik, tmp);
-					tmpstr << tmp;
-					if (tmp[0] != ':')
+					//czytanie naglowka
+					tmpstr >> id_samolotu;
+					tmpstr >> uid;
+					tmpstr >> date;
+					//tmpstr >> ts;
+					//tmpstr >> src;
+					//tmpstr >> attr;
+					//tmpstr >> dep;
+					//tmpstr >> tdep;
+					//tmpstr >> arr;
+					//tmpstr >> tarr;
+					//tmpstr >> ac;
+					//tmpstr >> acn;
+					//tmpstr >> eqp;
+					//tmpstr >> act;
+					//tmpstr >> ndep;
+					//tmpstr >> narr;
+
+					samolot.set_identyfikator_lotu(id_samolotu);
+					samolot.set_unikalny_ID_lotu(uid);
+					/*samolot.set_nazwa_lotniska_startowego(dep);
+					samolot.set_nazwa_lotniska_koncowego(arr);*/
+
+					bool czy_dalej_w_petli = true;
+					while (czy_dalej_w_petli)
 					{
-						if (tmp[0] != '>')
+						tmp = "";
+						tmpstr.str("");
+						std::getline(plik, tmp);
+
+						tmpstr << tmp;
+						if (tmp[0] != ':')
 						{
-							//zczytywanie fixow
-							tmpstr >> szerokosc_geograficzna;
-							tmpstr >> dlugosc_geograficzna;
-							tmpstr >> hh_mm_ss;
-							fix.set_dlugosc_geograficzna(dlugosc_geograficzna);
-							fix.set_szerokosc_geograficzna(szerokosc_geograficzna);
-							fix.set_czas(hh_mm_ss);
-							while (!tmpstr.eof())
+							if (tmp[0] != '>')
 							{
+								//zczytywanie fixow
+								tmpstr >> szerokosc_geograficzna;
+								tmpstr >> dlugosc_geograficzna;
+								tmpstr >> hh_mm_ss;
 
+								////////////////
+								//WYSWIETLENIE DLA SPRAWDZENIA - nie dziala
 
-								tmpstr >> tmp;
-								switch (tmp[0])
-								{
-								case 'a':
-								{
-									asp = tmp;
-								}
-								break;
-								case 'f':
-								{
-									nazwa_fix = tmp;
-								}
-								break;
-								case 'g':
-								{
-									gsp = tmp;
-								}
-								break;
+								std::cout << "TU";
+								getchar();
+								////////////////
 
-								default:
+								fix.set_dlugosc_geograficzna(dlugosc_geograficzna);
+								fix.set_szerokosc_geograficzna(szerokosc_geograficzna);
+								fix.set_czas(hh_mm_ss);
+
+								while (!tmpstr.eof())
 								{
-									wysokosc1 = tmp;
-									tmpstr >> wysokosc2;
-									fix.set_wysokosc1(wysokosc1);
-									fix.set_wysokosc2(wysokosc2);
+									tmpstr >> tmp;
+									switch (tmp[0])
+									{
+									case 'a':
+									{
+										asp = tmp;			//asp lub -az
+									}
+									break;
+									case 'd':
+									{
+										d = tmp;
+									}
+									case 'f':
+									{
+										nazwa_fix = tmp;
+									}
+									break;
+									case 'g':
+									{
+										gsp = tmp;			//gsp lub grp
+									}
+									break;
+									case 'v':
+									{
+										vr = tmp;
+									}
+
+									default:
+									{
+										wysokosc1 = tmp;
+										tmpstr >> wysokosc2;
+
+										fix.set_wysokosc1(wysokosc1);
+										fix.set_wysokosc2(wysokosc2);
+									}
+									break;
+									}
 								}
-								break;
-								}
+								samolot.dodaj_punkt_przelotu(fix);
 							}
-							samolot.dodaj_punkt_przelotu(fix);
-						}
-						else
-						{
-							czy_dalej_w_petli = false;
-							dodaj_lot(samolot);
+							else
+							{
+								czy_dalej_w_petli = false;
+								dodaj_lot(samolot);
+							}
 						}
 					}
 				}
@@ -228,7 +258,7 @@ void _Teren_::wczytaj_plik(string _nazwa_pliku)
 
 		}
 
-		
+
 
 	}
 
@@ -298,7 +328,7 @@ _Teren_ & _Teren_::operator<< (string  wspolrzedna_x_punktu_s)
 	//C++11
 	string  godzina_s;
 	//dzien = std::stod(godzina_s);
-	
+
 	//C++98
 	std::istringstream isstream_5(godzina_s);
 	isstream_5 >> godzina;

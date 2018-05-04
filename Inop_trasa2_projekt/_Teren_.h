@@ -103,7 +103,6 @@ private:
 	vector <int> dni;
 	vector <int> godziny;
 	vector <_Samolot_> loty_z_danego_dnia;
-	_Samolot_ tmp;
 };
 
 #endif
