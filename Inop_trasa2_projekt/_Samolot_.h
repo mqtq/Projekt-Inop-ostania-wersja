@@ -76,6 +76,8 @@ private:
 	string nazwa_lotniska_startowego;
 	string nazwa_lotniska_koncowego;
 	vector <_Fix_> punkty_przelotu;
+	vector <int> czas_wlotu_do_obszaru;
+	vector<int> czas_wylotu_z_obszaru;
 };
 
 #endif
